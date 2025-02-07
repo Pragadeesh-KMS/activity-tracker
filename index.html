@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Activity Tracker</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="add-task">
+                <input type="text" id="newTask" placeholder="Enter new activity">
+                <button onclick="addNewTask()">Add Activity</button>
+
+            </div>
+            <div class="header-controls">
+                <select id="monthSelect" onchange="changeMonth()"></select>
+                <button class="report-btn" onclick="generateReport()">Generate Report</button>
+                <span class="settings-icon" onclick="toggleSettings()">☰</span>
+            </div>
+            
+        </div>
+        <div class="scroll-container">
+            <table>
+                <thead id="tableHeader"></thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Add this new modal structure -->
+    <div id="reminderModal" class="modal">
+        <div class="modal-content">
+            <h3>Set Reminder Type</h3>
+            <div class="reminder-options">
+                <button class="reminder-option weekly" onclick="selectReminderType('weekly')">Weekly Reminder</button>
+                <button class="reminder-option monthly" onclick="selectReminderType('monthly')">Monthly Reminder</button>
+                <button class="reminder-option frequent" onclick="selectReminderType('frequent')">Frequent Days</button>
+            </div>
+            
+            <!-- Weekly Reminder Content -->
+            <div id="weeklyContent" class="reminder-content">
+                <div class="frequency-days">
+                    <button class="day-btn sun" data-day="0" onclick="toggleDay(this)">S</button>
+                    <button class="day-btn" data-day="1" onclick="toggleDay(this)">M</button>
+                    <button class="day-btn" data-day="2" onclick="toggleDay(this)">T</button>
+                    <button class="day-btn" data-day="3" onclick="toggleDay(this)">W</button>
+                    <button class="day-btn" data-day="4" onclick="toggleDay(this)">T</button>
+                    <button class="day-btn" data-day="5" onclick="toggleDay(this)">F</button>
+                    <button class="day-btn sat" data-day="6" onclick="toggleDay(this)">S</button>
+                </div>
+            </div>
+
+            <!-- Monthly Reminder Content -->
+            <div id="monthlyContent" class="reminder-content">
+                <p>Choose dates to be reminded (1-31):</p>
+                <div class="monthly-days-grid">
+                    <!-- Generated numbers 1-31 will go here -->
+                </div>
+            </div>
+
+            <!-- Frequent Days Content -->
+            <div id="frequentContent" class="reminder-content">
+                <p>Remind me once every 
+                    <select id="frequentInterval">
+                        <!-- Options 1-31 -->
+                    </select> 
+                    day(s) starting from
+                    <input type="date" id="frequentStartDate">
+                </p>
+            </div>
+
+            <div class="modal-actions">
+                <button onclick="saveReminderSettings()">Save</button>
+                <button onclick="deleteReminderSettings()">Delete</button>
+                <button onclick="hideModal('reminderModal')">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <div id="pauseModal" class="modal">
+        <div class="modal-content">
+          <h3>Pause Activity</h3>
+          <!-- Single range picker input -->
+          <input type="text" id="pauseRange" placeholder="Choose dates" readonly>
+          <div id="currentPauses"></div>
+          <button onclick="savePausePeriod()">Save</button>
+          <button onclick="hideModal('pauseModal')">Cancel</button>
+        </div>
+    </div>
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <h3>Settings</h3>
+            <div id="settingsInputs">
+                <input type="text" id="gitTokenInput" placeholder="Enter GitHub Token">
+                <input type="text" id="gistIdInput" placeholder="Enter Gist ID">
+                <button onclick="saveSettings()">Login</button>
+            </div>
+            <button id="logoutButton" onclick="logout()" style="display: none;">Logout</button>
+            <button onclick="hideModal('settingsModal')">Close</button>
+        </div>
+    </div>
+    <div id="frequencyModal" class="modal">
+        <div class="modal-content">
+            <h3>Set Activity Frequency</h3>
+            <div class="frequency-days">
+                <button class="day-btn sun" data-day="0" onclick="toggleDay(this)">S</button>
+                <button class="day-btn" data-day="1" onclick="toggleDay(this)">M</button>
+                <button class="day-btn" data-day="2" onclick="toggleDay(this)">T</button>
+                <button class="day-btn" data-day="3" onclick="toggleDay(this)">W</button>
+                <button class="day-btn" data-day="4" onclick="toggleDay(this)">T</button>
+                <button class="day-btn" data-day="5" onclick="toggleDay(this)">F</button>
+                <button class="day-btn sat" data-day="6" onclick="toggleDay(this)">S</button>
+            </div>
+            <button onclick="saveFrequency()">Save</button>
+            <button onclick="deleteFrequency()">Delete Frequency</button>
+            <button onclick="hideModal('frequencyModal')">Cancel</button>
+        </div>
+    </div>
+    <div id="timelineModal" class="modal">
+        <div class="modal-content">
+            <h3>Set Activity Timeline</h3>
+            <input type="text" id="timelineRange" placeholder="Choose dates" readonly>
+            <div id="currentTimelines"></div>
+            <button onclick="saveTimelinePeriod()">Save</button>
+            <button onclick="hideModal('timelineModal')">Cancel</button>
+        </div>
+    </div>    
+    
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="script.js"></script>
+</body>
+</html>

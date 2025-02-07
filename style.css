@@ -1,0 +1,456 @@
+body { font-family: Arial, sans-serif; margin: 20px; }
+.container { display: flex; flex-direction: column; }
+.header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: auto;
+}
+
+.settings-icon {
+    font-size: 24px;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.settings-icon:hover{
+    background-color: #e6d3c9;
+}
+.scroll-container { overflow-x: auto; max-width: 100%; }
+table { border-collapse: collapse; width: max-content; }
+th, td { 
+    border: 1px solid #ddd; 
+    padding: 8px;
+    text-align: center;
+    min-width: 50px;
+    position: relative;
+}
+th { background-color: #f2f2f2; }
+tr:nth-child(even) { background-color: #f9f9f9; }
+
+.fixed-column {
+    position: sticky;
+    left: 0;
+    background: white;
+    z-index: 3;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.add-task { margin-bottom: 10px; }
+
+.status-options {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.9);
+    justify-content: space-around;
+    align-items: center;
+}
+
+td:hover .status-options {
+    display: flex;
+}
+
+.status-option {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid white;
+}
+
+.status-option:hover {
+    transform: scale(1.2);
+}
+
+.completed { background-color: #4CAF50; }
+.partial { background-color: #ffeb3b; }
+.missed { background-color: #f44336; }
+.active-pause { background-color: #7171719c; }
+
+.activity-name-container { position: relative; }
+.activity-name { display: inline-block; padding: 5px; }
+.activity-actions {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: #fff;
+    padding: 5px;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    white-space: nowrap; /* Ensure buttons stay in single line */
+}
+
+.activity-name-container:hover .activity-actions { display: block; }
+.edit-btn, .delete-btn, .pause-btn { cursor: pointer; margin: 0 2px; }
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 15px;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    z-index: 1000;
+    max-width: 350px;
+    width: 90%;
+    border-radius: 8px;
+}
+
+.pause-date-inputs { display: flex; flex-direction: column; gap: 10px; margin: 10px 0; }
+.report-btn {
+    margin-left: 10px;
+    padding: 5px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+table {
+    border-collapse: collapse;
+    width: max-content;
+    position: relative;
+}
+
+.fixed-column {
+    position: -webkit-sticky; 
+    position: sticky;
+    left: 0;
+    background: white;
+    z-index: 3; 
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+.end-btn {
+    cursor: pointer;
+    color: red;
+}
+
+.unend-btn {
+    cursor: pointer;
+    color: green;
+}
+
+.activity-name-container {
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;
+    background: white;
+    z-index: 3;
+}
+
+.scroll-container {
+    overflow-x: auto;
+    max-width: 100%;
+}
+.icon-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip {
+    visibility: hidden;
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 5px 8px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.icon-wrapper:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+.status-option-wrapper {
+    position: relative;
+    display: inline-block;
+    margin: 5px;
+}
+
+.tooltip {
+    visibility: hidden;
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 5px 8px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 150%;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0ms;
+}
+
+.status-option-wrapper:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.timeline-btn {
+    cursor: pointer;
+    color: #2196F3;
+}
+
+.timeline-date-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.modal h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.modal-content input {
+    width: 90%;
+    padding: 6px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+
+.modal-content button {
+    margin-top: 10px;
+    padding: 8px 15px;
+    background-color: #23a1ea;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modal-content button:hover {
+    background-color: #e32024;
+}
+
+/* Make selected range days appear in a transparent green color */
+.flatpickr-day.selected,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange,
+.flatpickr-day.inRange {
+    background: rgba(76, 175, 80, 0.5) !important;  /* transparent green */
+    color: #000;
+}
+
+/* Add these new styles to your existing CSS */
+#incompleteTaskNotification {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.notification-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.notification-content h3 {
+    margin-top: 0;
+    color: #ff9800;
+}
+
+.notification-content button {
+    margin-top: 15px;
+    padding: 8px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.notification-content button:hover {
+    background-color: #45a049;
+}
+
+/* Add styles for disabled status options */
+.status-option.disabled {
+    opacity: 0.5;
+    cursor: not-allowed !important;
+}
+
+td.disabled .status-options {
+    display: none;
+}
+
+.frequency-btn {
+    cursor: pointer;
+    color: #9c27b0;
+}
+
+.frequency-days {
+    display: flex;
+    gap: 5px;
+    margin: 15px 0;
+}
+
+.day-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    background: #fff;
+    cursor: pointer;
+}
+
+.day-btn.selected {
+    background: #f06363;
+    color: rgb(0, 0, 0);
+    border-color: #e72929;
+}
+
+.day-btn.sun {
+    color: rgb(0, 0, 0);
+}
+
+/* Add these new styles */
+.reminder-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.reminder-option {
+    padding: 10px;
+    border: 1px solid #ddd;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin: 5px 0;
+}
+
+.reminder-option:hover {
+    background-color: #f0f0f0;
+}
+
+.reminder-option.selected {
+    background-color: #4CAF50;
+    color: white;
+    border-color: #45a049;
+}
+
+.reminder-option.selected:hover {
+    background-color: #0edd2a;
+}
+
+.reminder-content {
+    display: none;
+}
+
+.reminder-content.active {
+    display: block;
+}
+
+.monthly-days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    max-width: 300px;
+}
+
+.monthly-day {
+    padding: 5px;
+    border: 1px solid #ddd;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.monthly-day:hover {
+    background-color: #f30145;
+}
+
+.monthly-day.selected {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.modal-actions {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.modal-actions button {
+    padding: 6px 12px;
+    background-color: #21c2e7;
+    color: white;
+    border:#23a1ea;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.modal-actions button:hover {
+    background-color: #0bcd15;
+}
+
+
+.reminder-btn {
+    cursor: pointer;
+}
+
+.frequent-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.frequent-controls select {
+    padding: 5px;
+}
+
+.frequent-controls input[type="date"] {
+    padding: 5px;
+}
