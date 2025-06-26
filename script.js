@@ -896,7 +896,7 @@ function getDateKey(date) {
 function generateHeaders() {
     const headerRow = document.getElementById('tableHeader');
     const daysInMonth = new Date(selectedYear, selectedMonth + 1, 0).getDate();
-    let headerHTML = '<tr><th class="fixed-column">ACTIVITY</th>';
+    let headerHTML = '<tr><th class="fixed-column">--YOUR ACTIVITIES--</th>';
     
     for (let day = 1; day <= daysInMonth; day++) {
         const date = new Date(selectedYear, selectedMonth, day);
